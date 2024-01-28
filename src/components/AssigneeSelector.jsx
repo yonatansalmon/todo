@@ -3,21 +3,20 @@ import EmojiPickerDropdown from './EmojiPickerDropdown';
 import { AssigneeContainer, AddAsigneeBtn, CloseNewAssignee, ErrorContainer } from '../styledcomponents/styles';
 
 const AssigneeSelector = ({ isNewAssignee, setIsNewAssignee, handleInputChange, errors, userEmoji, assignees, handleSelectEmoji, todoData }) => {
-
   
   const handleCloseAssignee = () => {
     setIsNewAssignee(false);
-    handleSelectEmoji('')
-  }
+    handleSelectEmoji('');
+  };
 
   return (
     <div>
       {isNewAssignee ? (
         <div>
           <Form.Control type='text' name='assignee' onChange={handleInputChange} placeholder='Assignee Name' />
-          {errors.assignee && <ErrorContainer >{errors.assignee}</ErrorContainer>}
+          {errors.assignee && <ErrorContainer>{errors.assignee}</ErrorContainer>}
           <EmojiPickerDropdown onSelectEmoji={handleSelectEmoji} userEmoji={userEmoji} />
-          {errors.emoji && <ErrorContainer >{errors.emoji}</ErrorContainer>}
+          {errors.emoji && <ErrorContainer>{errors.emoji}</ErrorContainer>}
 
           <CloseNewAssignee className='align-center' onClick={handleCloseAssignee}>
             &times;

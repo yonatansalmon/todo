@@ -4,7 +4,7 @@ import { ASSIGNEES, TODOS } from '../constants';
 
 const TodoContext = createContext();
 
-const useTodos = () => useContext(TodoContext);
+const useTodosContext = () => useContext(TodoContext);
 
 const TodosProvider = ({ children }) => {
   const [assignees, setAssignees] = useState(ASSIGNEES);
@@ -96,4 +96,4 @@ const TodosProvider = ({ children }) => {
 };
 
 export default TodosProvider;
-export { useTodos };
+export { useTodosContext };

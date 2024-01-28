@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { Card } from 'react-bootstrap';
 import { EMOJIS } from '../constants';
 import { EmojiContainer, EmojiItem } from '../styledcomponents/styles';

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { useTodos } from '../context/TodosProvider';
+import { useTodosContext } from '../context/TodosProvider';
 import { useModalContext } from '../context/ModalProvider';
 import useFormValidation from '../hooks/useFormValidation';
 import AssigneeSelector from './AssigneeSelector';
@@ -11,7 +11,7 @@ const AddEditTodo = () => {
   const [isNewAssignee, setIsNewAssignee] = useState(false);
   const [newAssigneeName, setNewAssigneeName] = useState('');
   const [userEmoji, setUserEmoji] = useState('');
-  const { addNewTodo, editTodo, assignees, addAssignee } = useTodos();
+  const { addNewTodo, editTodo, assignees, addAssignee } = useTodosContext();
   const {
     show,
     onShow,
@@ -20,6 +20,7 @@ const AddEditTodo = () => {
 
   const { validate, errors, setErrors, setIsTouched } = useFormValidation(todoData, isNewAssignee, userEmoji, newAssigneeName);
 
+  //If edit, initialized state with selected todo
   useEffect(() => {
     if (editedTodo) {
       setTodoData(editedTodo);
@@ -31,7 +32,6 @@ const AddEditTodo = () => {
   const handleInputChange = (e) => {
     if (isNewAssignee && e.target.name === 'assignee') {
       setNewAssigneeName(e.target.value);
-    } else if (isNewAssignee && e.target.name === 'emoji') {
     } else {
       setTodoData({
         ...todoData,
@@ -85,24 +85,22 @@ const AddEditTodo = () => {
         <StyledForm className='TodoForm'>
           <div>
             <TitleInput type='text' name='title' value={todoData.title} onChange={handleInputChange} placeholder='Todo Title' />
-            {errors.title && <ErrorContainer >{errors.title}</ErrorContainer>}
+            {errors.title && <ErrorContainer>{errors.title}</ErrorContainer>}
           </div>
-          <Form.Group>
-            <AssigneeSelector
-              isNewAssignee={isNewAssignee}
-              setIsNewAssignee={setIsNewAssignee}
-              handleInputChange={handleInputChange}
-              errors={errors}
-              userEmoji={userEmoji}
-              assignees={assignees}
-              selectedAssignee={todoData.assignee}
-              handleSelectEmoji={handleSelectEmoji}
-              todoData={todoData}
-            />
-          </Form.Group>
+          <AssigneeSelector
+            isNewAssignee={isNewAssignee}
+            setIsNewAssignee={setIsNewAssignee}
+            handleInputChange={handleInputChange}
+            errors={errors}
+            userEmoji={userEmoji}
+            assignees={assignees}
+            selectedAssignee={todoData.assignee}
+            handleSelectEmoji={handleSelectEmoji}
+            todoData={todoData}
+          />
           <div>
             <Form.Control as='textarea' name='description' value={todoData.description} onChange={handleInputChange} placeholder='Todo Description' />
-            {errors.description && <ErrorContainer >{errors.description}</ErrorContainer>}
+            {errors.description && <ErrorContainer>{errors.description}</ErrorContainer>}
           </div>
         </StyledForm>
       </StyledModalBody>

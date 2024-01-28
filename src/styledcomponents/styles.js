@@ -8,7 +8,6 @@ import { STATUS } from '../constants';
 // Todos Page
 
 export const PageContainer = styled.div`
-  margin-top: 1rem;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -22,8 +21,11 @@ export const MainTitle = styled.h1`
 `;
 
 export const ColumnsContainer = styled.div`
-  margin-top: 1rem;
+  margin: 1rem;
   display: flex;
+  @media (max-width: 560px) {
+    flex-direction: column;
+  }
 `;
 
 export const ButtonContainer = styled.div`
@@ -96,7 +98,7 @@ export const TodoItem = styled.div`
     display: block;
   }
 
-  @media (max-width: 540px) {
+  @media (max-width: 560px) {
     grid-template-columns: 2fr 1fr;
   }
 `;
@@ -123,7 +125,8 @@ export const TodoTitle = styled.h4`
   font-size: 1rem;
   display: flex;
   align-items: center;
-  width: 150%;
+  width: 130%;
+  overflow-wrap: break-word;
   &::before {
     content: ''; 
     display: flex;
@@ -132,13 +135,18 @@ export const TodoTitle = styled.h4`
     width: .6rem; 
     height: .6rem;
     background-image: url('${paperIcon}');
-    background-size: contain; /* This resizes the image to fit within the element */
+    background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     filter: ${(props) => getStatusStyles(props.$status, props.$emoji).filter};
     margin-right: 8px;
   }
 `;
+
+export const TodoDescription = styled.p`
+font-size: .8rem;
+overflow-wrap: break-word;
+`
 
 export const TodoData = styled.div`
   font-size: 0.5rem;
@@ -153,7 +161,7 @@ export const TodoData = styled.div`
 // Add/Edit Todo
 
 export const StyledModalHeader = styled(Modal.Header)`
-  background-color: #000;
+  background-color: #555;
   .btn-close {
     filter: brightness(52%) grayscale(4%) invert(1);
   }
@@ -178,7 +186,7 @@ export const StyledForm = styled(Form)`
   grid-template-columns: 2fr 1fr;
   gap: 0.8rem;
 
-  @media (max-width: 540px) {
+  @media (max-width: 560px) {
     grid-template-columns: 1fr;
   }
 
@@ -192,7 +200,7 @@ export const TitleInput = styled(Form.Control)`
 `;
 
 export const ErrorContainer = styled(Form.Text)`
-  color:'#CA4A3D';
+  color: #CA4A3D;
   font-size: 0.5rem;
   margin-left: 10px;
 `;
@@ -225,6 +233,8 @@ export const EmojiContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   margin-top: 1rem;
+  border-style: inset;
+  padding: 6px;
 `;
 
 export const EmojiItem = styled.div`

@@ -32,7 +32,7 @@ export const TODOS = {
     3: {
       id: 3,
       title: 'Deploy App',
-      description: 'Deployment will be at 14:00',
+      description: 'Deployment at 14:00',
       assignee: 0,
     },
   },

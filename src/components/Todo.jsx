@@ -1,15 +1,15 @@
 import React, { memo } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 import editIcon from '../assets/editIcon.svg';
-import { useTodos } from '../context/TodosProvider';
+import { useTodosContext } from '../context/TodosProvider';
 import { uppercaseFirstLetter } from '../helpers';
 import { useModalContext } from '../context/ModalProvider';
 import { STATUS } from '../constants';
-import { EditIcon, TodoItem, TextWithIcons, TodoTitle, TodoData } from '../styledcomponents/styles';
+import { EditIcon, TodoItem, TextWithIcons, TodoTitle, TodoDescription,  TodoData } from '../styledcomponents/styles';
 
 const Todo = ({ todo, index, status }) => {
   const { onShow } = useModalContext();
-  const { assignees } = useTodos();
+  const { assignees } = useTodosContext();
 
   //Check to see if Todo has asignee or not
   const noAssignee = assignees[todo.assignee].id === 0;
@@ -23,8 +23,10 @@ const Todo = ({ todo, index, status }) => {
         <>
           <TodoItem ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} $status={status}>
             <TodoData $align={'left'} className='TodoText'>
-              <TodoTitle $status={status}>{todo.title}</TodoTitle>
-              <p>{todo.description}</p>
+              <TodoTitle  $status={status}>
+                {todo.title}
+              </TodoTitle>
+              <TodoDescription >{todo.description}</TodoDescription>
             </TodoData>
             <TodoData $align={'right'} className='TodoData'>
               <TextWithIcons $status={status} $emoji={assineeEmoji}>
